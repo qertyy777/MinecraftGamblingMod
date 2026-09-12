@@ -1,4 +1,4 @@
-package com.qertyy.gamblingmode;
+package com.qertyy.gamblingmod;
 
 import java.util.List;
 

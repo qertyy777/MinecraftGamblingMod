@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "gamblingmod:block/coin_dev_block"
+  }
+}

@@ -1,4 +1,4 @@
-package com.qertyy.gamblingmode;
+package com.qertyy.gamblingmod;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

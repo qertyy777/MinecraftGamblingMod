@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "gamblingmod:block/coin_dev_block"
+    }
+  }
+}
