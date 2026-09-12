@@ -25,4 +25,8 @@ public class ExampleModClient {
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
     }
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void onClientTick(net.neoforged.neoforge.client.event.ClientTickEvent.Post event) {
+        com.qertyy.gamblingmod.screen.RouletteManager.getInstance().tick();
+    }
 }

@@ -9,7 +9,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(GamblingMod.MOD_ID);
 
-    public  static final DeferredItem<Item> COIN = ITEMS.register("coin", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<CoinRouletteItem> COIN = ITEMS.register("coin",
+            () -> new CoinRouletteItem(new Item.Properties().stacksTo(64)));
     public  static final DeferredItem<Item> COIN_DEV = ITEMS.register("coin_dev", () -> new Item(new Item.Properties()));
 
 
