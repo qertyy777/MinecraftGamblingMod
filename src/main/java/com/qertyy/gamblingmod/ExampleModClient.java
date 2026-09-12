@@ -8,7 +8,11 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-
+import com.qertyy.gamblingmod.item.ModGamblePrices;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = GamblingMod.MOD_ID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -19,6 +23,19 @@ public class ExampleModClient {
         // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
         // Do not forget to add translations for your config options to the en_us.json file.
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void onItemTooltip(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+
+        if (ModGamblePrices.ITEM_VALUES.containsKey(stack.getItem())) {
+            int value = ModGamblePrices.getValue(stack.getItem());
+            event.getToolTip().add(
+                    Component.literal("Цена: " + value)
+                            .withStyle(ChatFormatting.GOLD)
+            );
+        }
     }
 
     @SubscribeEvent
