@@ -2,10 +2,12 @@ package com.qertyy.gamblingmod.block;
 
 import com.qertyy.gamblingmod.GamblingMod;
 import com.qertyy.gamblingmod.item.ModItems;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -14,30 +16,29 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    public  static  final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(GamblingMod.MOD_ID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(GamblingMod.MOD_ID);
 
-    public  static final  DeferredBlock<Block> COIN_BLOCK = registerBlock("coin_block",
-            () -> new Block(BlockBehaviour.Properties.of().strength(4f).sound(SoundType.ANVIL)));
-  public  static final  DeferredBlock<Block> COIN_DEV_BLOCK = registerBlock("coin_dev_block",
-            () -> new Block(BlockBehaviour.Properties.of().strength(4f).sound(SoundType.ANVIL)));
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, GamblingMod.MOD_ID);
+
+    public static final DeferredBlock<Block> COIN_BLOCK = registerBlock("coin_block",
+            () -> new Block(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(4f).sound(SoundType.ANVIL)));
+    public static final DeferredBlock<Block> COIN_DEV_BLOCK = registerBlock("coin_dev_block",
+            () -> new Block(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(4f).sound(SoundType.ANVIL)));
 
 
-    private  static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block)
-    {
-        DeferredBlock<T> toReturn = BLOCKS.register(name,block);
-        registerBlockItem(name,toReturn);
+    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
+        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
+        registerBlockItem(name, toReturn);
         return toReturn;
     }
 
-    private  static  <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block)
-    {
+    private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
-    //public  static final DeferredItem<Blo> COIN_BLOCK = ITEMS.register("coin_block", () -> new Item(new Item.Properties()));
-    //public  static final DeferredItem<Item> COIN_DEV_BLOCK = ITEMS.register("coin_dev_block", () -> new Item(new Item.Properties()));
 
-    public  static  void register(IEventBus eventBus)
-    {
+    public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
+        BLOCK_ENTITIES.register(eventBus);
     }
 }

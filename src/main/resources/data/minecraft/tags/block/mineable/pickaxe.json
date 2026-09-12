@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "gamblingmod:coin_block",
+    "gamblingmod:coin_dev_block"
+  ]
+}
